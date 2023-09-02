@@ -1,10 +1,10 @@
 import pygame
 
 class Ship:
-    """alien ship related definition"""
+    """a class to manage all the ship behavior"""
 
     def __init__(self, new_game):
-        """initial the ship cofigration"""
+        """initial the ship cofig and set its position"""
         self.screen = new_game.screen
         self.screen_rect = new_game.screen.get_rect()
 
@@ -12,10 +12,17 @@ class Ship:
         self.image = pygame.image.load("images/ship.bmp")
         self.rect = self.image.get_rect()
 
-        # place every new ship at the center of the screen bottom
+        # start each new ship at the bottom center of the screen
         self.rect.midbottom = self.screen_rect.midbottom
+        
+        # movement flag
+        self.moving_right = False
 
     def blitme(self):
-        """place ship at designated location"""
+        """draw ship at designated location(mid-bottom)"""
         self.screen.blit(self.image, self.rect)
     
+    def update(self):
+        """update the ship's postion basing on the movement flag"""
+        if self.moving_right:
+            self.rect.x += 1

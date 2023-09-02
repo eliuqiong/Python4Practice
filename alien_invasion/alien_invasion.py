@@ -13,30 +13,32 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        pygame.display.set_caption("Best Game of the Year: Alien Invasion. Author: PAN & LIU")
+        pygame.display.set_caption("Game of 2023: Alien Invasion. Co-Authors: PAN & LIU")
         self.ship = Ship(self)
 
     
     def run_game(self):
-        """start the game loop"""
+        """start the game"""
         while True:
-            # monitor the mourse and keyboard
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit() 
+            # monitor the mourse and keyboard events, update screen
+            self._check_events()
+            self._update_screen()
 
-                # set background color
-                self.bg_color = (230, 230, 230)
-                    
-                # reset background every time
-                self.screen.fill(self.settings.bg_color)
-                self.ship.blitme()
+    def _check_events(self):
+        """check and respond to mouse and keyboard events"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit() 
 
-                # display the most recent screen settings
-                pygame.display.flip()
-
+    def _update_screen(self):
+        """update images on the screen and flip to the new screen"""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        
+        # display the most recent screen settings
+        pygame.display.flip()
 
 if __name__ == "__main__":
-    # create the game and start to play
+    # make a game instance and run the game
     new_game = AlienInvasion()
     new_game.run_game()
