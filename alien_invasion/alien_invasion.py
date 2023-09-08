@@ -4,6 +4,7 @@ import pygame
 
 from game_settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class AlienInvasion:
     """define the resource of the game"""
@@ -13,12 +14,14 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-	# set the initial screen to full screen and then get the width and height
+	    # set the initial screen to full screen and then get the width and height
         self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Game of 2023: Alien Invasion. Co-Authors: PAN & LIU")
+
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
     
     def run_game(self):
         """start the game"""
@@ -26,7 +29,10 @@ class AlienInvasion:
             # monitor the mourse and keyboard events, update screen
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
+            
+
 
     def _check_events(self):
         """check and respond to mouse and keyboard events"""
@@ -48,6 +54,8 @@ class AlienInvasion:
            self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self,event):
         """respons to key press up"""
@@ -56,11 +64,30 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
            self.ship.moving_left = False
 
+    def _fire_bullet(self):
+        """create a bullet and add it to the bullets Group"""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """update new bullets and remove old bullets"""
+        #update bullets postions
+        self.bullets.update()
+
+        #remove bullets that fly beyond the screen
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+            # check whether the bullets will disappear by print its number
+            # print(len(self.bullets))
 
     def _update_screen(self):
         """update images on the screen and flip to the new screen"""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         
         # display the most recent screen settings
         pygame.display.flip()

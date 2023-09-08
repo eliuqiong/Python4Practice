@@ -4,7 +4,7 @@ class Ship:
     """a class to manage all the ship behavior"""
 
     def __init__(self, new_game):
-        """initial the ship cofig and set its position"""
+        """initial the ship cofig and set its position to the center of bottom"""
         self.screen = new_game.screen
         self.screen_rect = new_game.screen.get_rect()
         self.settings = new_game.settings
