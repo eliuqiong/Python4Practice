@@ -89,17 +89,22 @@ class AlienInvasion:
         # check for any bullets that hit alien, then get rid of that alien
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        if not self.aliens:
+            # if no alien left, then clear bullets and create new fleet
+            self.bullets.empty()
+            self._create_alien_fleet()
+
     def _create_alien_fleet(self):
         """create the alien fleet"""
         # start an alien
         alien = Alien(self)
         # number of aliens in one row, each alien take twice space as its own width
-        alien_space_width = 2 * alien.rect.width
+        alien_space_width = 4 * alien.rect.width
         available_space_x = self.settings.screen_width - alien_space_width
         number_aliens_x = available_space_x // alien_space_width
         # number of rows of aliens, leave space for two rows on top of the ship and one row on the top of the aliens
-        available_space_y = self.settings.screen_height - 5 * alien.rect.height - self.ship.rect.height
-        number_aliens_row = available_space_y // ( 2 * alien.r15ect.height )
+        available_space_y = self.settings.screen_height - (10 * alien.rect.height) - self.ship.rect.height
+        number_aliens_row = available_space_y // ( 2 * alien.rect.height )
 
         # create the full fleet of alens
         for row_number in range(number_aliens_row):
@@ -133,7 +138,8 @@ class AlienInvasion:
         """drop the entire fleet and change moving direction"""
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
-            self.settings.fleet_direction = -1
+        # reset fleet direction to move left, which means it is -1
+        self.settings.fleet_direction *= -1
 
     def _update_screen(self):
         """update images on the screen and flip to the new screen"""
