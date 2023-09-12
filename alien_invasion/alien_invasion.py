@@ -21,7 +21,8 @@ class AlienInvasion:
         self.settings = Settings()
 
 	    # set the initial screen to full screen and then get the width and height
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        #self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Game of 2023: Alien Invasion. Co-Authors: PAN & LIU")
@@ -135,6 +136,7 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_point * len(aliens)
+            self.scoreboard.update_highest_score()          
             self.scoreboard.prep_score()
         # if no alien left, then clear bullets and create new fleet
         if not self.aliens:

@@ -4,7 +4,7 @@ class Settings:
     def __init__(self):
         """initialize the game's static settings"""
         self.screen_width =  1200
-        self.screen_height = 800
+        self.screen_height = 1000
         self.bg_color = (230, 230, 230)
 
         # ship settings
@@ -19,8 +19,8 @@ class Settings:
         self.bullets_allowed = 6
 
         # initial alien settingsfleet_direction
-        self.alien_speed = 5.0
-        self.fleet_drop_speed = 20
+        self.alien_speed = 10.0
+        self.fleet_drop_speed = 100
 
         # 1 represent moving right, -1 represent moving left
         self.fleet_direction = 1

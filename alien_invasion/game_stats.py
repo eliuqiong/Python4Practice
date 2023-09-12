@@ -9,9 +9,9 @@ class GameStats:
         # set the game to de-active when the game begins
         self.game_active = False
 
-    
+        
     def reset_stats(self):
         """reset all result"""
         self.ships_left = self.settings.ship_limit
         self.score = 0
-    
+        
