@@ -1,2 +1,2 @@
-# codeinplace
-final project of code in place
+# personal project
+project code
