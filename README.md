@@ -1,2 +1,2 @@
-# personal project
-project code
+# Personal project
+First project almost finished: Alien Invasion
