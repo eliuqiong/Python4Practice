@@ -1,15 +1,18 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """a class to manage all the ship behavior"""
 
     def __init__(self, new_game):
         """initial the ship cofig and set its position to the center of bottom"""
+        # heritage the class of sprite
+        super().__init__()
         self.screen = new_game.screen
         self.screen_rect = new_game.screen.get_rect()
         self.settings = new_game.settings
 
-        # load ship image and its rectagular
+        # load ship image and its rectagularnew_game.screen.get_rect()
         self.image = pygame.image.load("images/ship.bmp")
         self.rect = self.image.get_rect()
 

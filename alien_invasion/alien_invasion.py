@@ -73,6 +73,8 @@ class AlienInvasion:
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
             self.scoreboard.prep_score()
+            self.scoreboard.prep_game_level()
+            self.scoreboard.prep_ships_left()
 
             # get rid of aliens and ship
             self.aliens.empty()
@@ -95,6 +97,9 @@ class AlienInvasion:
             # set the moving status and stop to move
            self.ship.moving_left = True
         elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+            with open("highest_score_ever.txt","w") as highest_score:
+                highest_score.write(str(self.stats.highest_score))
+                highest_score.close()
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -143,7 +148,10 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_alien_fleet()
             self.settings.increase_speed()
-
+            self.scoreboard.prep_highest_score()  
+            #increase game level by 1
+            self.stats.game_level += 1
+            self.scoreboard.prep_game_level()
 
     def _create_alien_fleet(self):
         """create the alien fleet"""
@@ -220,6 +228,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             #decrease the ship number can be used
             self.stats.ships_left -= 1
+            self.scoreboard.prep_ships_left()
 
             # clear the screen
             self.aliens.empty()
