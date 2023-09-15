@@ -6,4 +6,4 @@ v1.0 a shotting game with ability to calculate your score and compete with all t
 V0.8 Add score function
 - limitation: can only save the highest score in one game, cannot save it permanantly, close the game will reset the highest score too.
 
-# website using Django
+# Project 2: a e-commerce website using Django
