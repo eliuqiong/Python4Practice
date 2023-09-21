@@ -5,4 +5,4 @@ learning_log/.git/
 learning_log/.gitignore
 learning_log/.platform/
 .DS_Store
-learning_log/Game_Alien_Invasion/__pycache__/
+Game_Alien_Invasion/__pycache__/
